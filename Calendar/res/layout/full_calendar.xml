@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    android:orientation="vertical" >
+
+	<TextView android:id="@+id/day_calendar"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:textSize="118sp"
+	    android:shadowColor="#A64C84"
+	    android:layout_gravity="center_horizontal"
+	    android:textColor="#FFFFFF"
+	    android:background="#A6A6A6"/>    
+
+</LinearLayout>

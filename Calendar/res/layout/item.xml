@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+	android:padding="2dp"
+    android:orientation="vertical"
+    android:background="@drawable/calendar" >
+	<TextView
+	    android:id="@+id/item_text"
+	    android:textSize="18sp"
+	    android:shadowColor="#A64C84"
+	    android:textColor="#FFFFFF"
+	    android:layout_width="wrap_content"
+		android:layout_height="wrap_content">
+	</TextView>
+</LinearLayout>
