@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/item"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-	android:padding="2dp"
-    android:orientation="vertical"
-    android:background="@drawable/calendar" >
+    android:layout_width="fill_parent"
+    android:layout_height="110dp"
+    android:paddingBottom="0dip"
+    android:paddingTop="0dip"
+    android:paddingLeft="5dp"
+	android:background="#4F4F4F"
+    android:orientation="horizontal">
+    
 	<TextView
 	    android:id="@+id/item_text"
 	    android:textSize="18sp"
-	    android:shadowColor="#A64C84"
-	    android:textColor="#FFFFFF"
-	    android:layout_width="wrap_content"
-		android:layout_height="wrap_content">
+	    android:scrollHorizontally="false"
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content"
+         android:textColor="@android:color/white"
+         android:layout_weight="0.2"
+         android:padding="2dp">
 	</TextView>
 </LinearLayout>

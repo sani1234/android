@@ -1,14 +1,18 @@
 package com.yodi.calendar;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+
+import android.text.format.DateFormat;
 
 public class CalendarUtils {
 	private int day;
 	private int month;
 	private int year;
+	private Date date;
 	private Calendar calendar;
-	private String[] dates;
+	private Integer[] dates;
 
 	public final Integer MAXIMUM_DAY = 31;
 	
@@ -17,17 +21,17 @@ public class CalendarUtils {
 	 */
 	public CalendarUtils() {
 		// Get today date
-		Date now = new Date();
+		Date date = new Date();
 
 		// Set initial day, month and year
-		day = now.getDate();
-		month = now.getMonth();
-		year = now.getYear();
+		day = date.getDate();
+		month = date.getMonth();
+		year = date.getYear();
 		
 		this.calendar = Calendar.getInstance();
 
 		// Build dates array
-		dates = new String[MAXIMUM_DAY];
+		dates = new Integer[MAXIMUM_DAY];
 	}
 
 	/**
@@ -54,17 +58,51 @@ public class CalendarUtils {
 		return calendar;
 	}
 	
+	
+	/**
+	 * Get day name and formating
+	 */
+	public String getDateName(int day, String format) {
+		// Get the date name
+		SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE");
+		if(format == "SHORT") {
+			// Get the date name
+			dateFormat = new SimpleDateFormat("E");			
+		}
+
+		try {
+			Date date = new Date(this.year, this.month, day);
+			this.date = date;
+		} catch (Exception e) {
+			System.out.println("ERROR: Cannot build date \"" + this.year + " "
+					+ this.month + " " + day + "\"");
+		}
+		
+		return dateFormat.format(this.date);
+	}
+	
+	/**
+	 * Get today date instance
+	 * @return
+	 */
+	public Date getToday() {
+		// Get today date
+		Date date = new Date();
+		
+		return date;
+	}
+	
 	/**
 	 * Get calendar in Array String
 	 * @return
 	 */
-	public String[] getCalendarArray() {
+	public Integer[] getCalendarArray() {
 		// Get the last date of the selected month
 		int endMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
 
 		// Set calendar on Adapter using today by default
 		for(int i=0; i < MAXIMUM_DAY; i++) {
-			dates[i] = Integer.toString(i+1);
+			dates[i] = i+1;
 		}
 		
 		return dates;

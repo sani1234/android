@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.yodi.calendar.CalendarDetail"
+            android:name="com.yodi.calendar.DetailActivity"
             android:theme="@android:style/Theme.Black.NoTitleBar">
         </activity>
     </application>

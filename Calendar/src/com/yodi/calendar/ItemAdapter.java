@@ -7,12 +7,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-public class ImageAdapter extends BaseAdapter {
+public class ItemAdapter extends BaseAdapter {
 	private Context mContext;
 	public final Integer MAXIMUM_DAY = 31;
-	private String[] dates = new String[MAXIMUM_DAY];	
+	private Integer[] dates = new Integer[MAXIMUM_DAY];	
 	
-	public ImageAdapter(Context context) {
+	public ItemAdapter(Context context) {
 		// Get context
 		mContext = context;
 		
@@ -48,8 +48,15 @@ public class ImageAdapter extends BaseAdapter {
 		// Set Text
 		TextView tv =(TextView) v.findViewById(R.id.item_text);
 		
+		// Get day number by position
+		int dayNumber = dates[position];
+		
+		// Get day name
+		CalendarUtils calendarUtils = new CalendarUtils();
+		String dayName = calendarUtils.getDateName(dayNumber, "SHORT");
+		
 		// Set text resource on each position		
-		tv.setText(dates[position]);
+		tv.setText(Integer.toString(dayNumber) + " - " + dayName);
 
 		return v;
 	}
