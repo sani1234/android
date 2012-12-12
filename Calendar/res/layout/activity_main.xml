@@ -34,10 +34,12 @@
 		        android:layout_height="wrap_content"
 		        android:layout_toRightOf="@id/calendar_date"
 		        android:layout_alignParentRight="true"
-		        android:text="Workout!" 
+		        android:text="WorkOut!" 
+		        android:textColor="#FFFFFF"
 		        android:layout_marginTop="5dp"
 		        android:layout_marginRight="10dp"
 		        android:textStyle="bold"
+		        android:background="@drawable/button"
 		        />
 		        
 	        <TextView 
@@ -48,6 +50,30 @@
   	            android:layout_below="@id/calendar_date"
 	            >
 	        </TextView>
+	        
+	        <LinearLayout
+	            android:id="@+id/progress_bar"
+	            android:layout_marginTop="15dp"
+	            android:layout_below="@id/top_title"
+	       		android:layout_width="fill_parent"
+	       		android:orientation="vertical"
+	        	android:layout_height="wrap_content">
+     		        <LinearLayout
+			            android:id="@+id/progress_bar_first"
+			            android:layout_marginTop="5dp"
+			       		android:layout_width="80dp"
+			       		android:background="#B90D2A"
+			        	android:layout_height="6dp">
+			         </LinearLayout>
+                     <LinearLayout
+			            android:id="@+id/progress_bar_second"
+			            android:layout_marginTop="5dp"
+			       		android:layout_width="180dp"
+			       		android:background="#54A01B"
+			        	android:layout_height="6dp">
+			         </LinearLayout>
+			            
+	         </LinearLayout>
 	        
         </RelativeLayout>
 

@@ -28,25 +28,35 @@ public class ItemAdapter extends BaseAdapter {
 
 	@Override
 	public Object getItem(int position) {
-		return null;
+		return position;
 	}
 
 	@Override
 	public long getItemId(int position) {
-		return 0;
+		return position;
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View v = convertView;
+		ViewHolder holder; // to reference the child views for later actions
 
 		if(convertView == null) {
 			LayoutInflater li = LayoutInflater.from(mContext);
-			v = li.inflate(R.layout.item, parent, false);			
-		} 
+			v = li.inflate(R.layout.item, parent, false);
+			
+			// cache view fields into the holder
+			holder = new ViewHolder();
+			
+			// Set Text
+			holder.dateText =(TextView) v.findViewById(R.id.item_text);
+			
+			// Associate the holder with the view for latter lookup
+			v.setTag(holder);	
 
-		// Set Text
-		TextView tv =(TextView) v.findViewById(R.id.item_text);
+		} else {
+			holder = (ViewHolder) v.getTag();
+		}
 		
 		// Get day number by position
 		int dayNumber = dates[position];
@@ -56,10 +66,13 @@ public class ItemAdapter extends BaseAdapter {
 		String dayName = calendarUtils.getDateName(dayNumber, "SHORT");
 		
 		// Set text resource on each position		
-		tv.setText(Integer.toString(dayNumber) + " - " + dayName);
+		holder.dateText.setText(Integer.toString(dayNumber) + " - " + dayName);
 
 		return v;
 	}
-
 	
+	static class ViewHolder {
+		TextView dateText;
+		
+	}
 }
