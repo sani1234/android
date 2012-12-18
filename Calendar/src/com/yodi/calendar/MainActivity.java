@@ -5,11 +5,17 @@ import java.util.Date;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -22,6 +28,9 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity {
 	private ItemAdapter imageAdapter;
+	final Context context = this;
+	private static final int DIALOG_ALERT = 10;
+	private static final String ANDROID_TAG = "ANDROID";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -69,32 +78,73 @@ public class MainActivity extends Activity {
 			}
 		});
 		
+		
 		Button workout = (Button) findViewById(R.id.top_done_button);
-		workout.setOnClickListener(new View.OnClickListener() {			
+		workout.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Context context = getApplicationContext();
-				String text = "Yeah! You're ready workout now!";
-				Toast toast = Toast.makeText(context, text, 
-						Toast.LENGTH_SHORT);
-				toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-				toast.show();
-				
-				final int numVisibleChildren = gridView.getChildCount();
-				final int firstVisiblePosition = gridView.getFirstVisiblePosition();
+				showDialog(DIALOG_ALERT);
 
-				for ( int i = 0; i < numVisibleChildren; i++ ) {
-				    int positionOfView = firstVisiblePosition + i;
-				    if (positionOfView == today.getDay()) {
-				        View view = gridView.getChildAt(i);
-				        view.setBackgroundColor(0xffffffff); 
-				    }
-				}
+//				LayoutInflater inflater = getLayoutInflater();
+//				View layout = inflater.inflate(R.layout.menu,
+//						(ViewGroup) findViewById(R.id.toast_menu));
+//				
+//				TextView text = (TextView) layout.findViewById(R.id.menu_text);
+//				text.setText("Custom toast!");
+//				
+//				// TODO Auto-generated method stub
+//				Toast toast = new Toast(getApplicationContext());
+//				toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+//				toast.setView(layout);
+//				toast.show();
 				
-				
+				// Set date pickers cells 
+				imageAdapter.setDatePicker(today.getDate());
+				gridView.invalidateViews();
 			}
 		});
 	}
+	
+	protected Dialog onCreateDialog(int id) {
+		String[] options = {"RED", "YELLOW", "GREEN"};
+
+		switch(id) {
+		case DIALOG_ALERT:
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setTitle("Choose Workout Menu");
+			builder.setCancelable(false);
+			builder.setItems(options, new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+					Log.d(ANDROID_TAG, Integer.toString(which));
+				}
+			});
+			
+			builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+//					MainActivity.this.finish();
+				}
+			});
+			
+			builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
+			
+			
+			AlertDialog alertDialog = builder.create();
+			alertDialog.show();
+		}
+		return super.onCreateDialog(id);
+	}
+	
 
 }

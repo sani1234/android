@@ -1,8 +1,10 @@
 package com.yodi.calendar;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import android.text.format.DateFormat;
 
@@ -12,7 +14,7 @@ public class CalendarUtils {
 	private int year;
 	private Date date;
 	private Calendar calendar;
-	private Integer[] dates;
+	private Integer[] dates = new Integer[31];
 
 	public final Integer MAXIMUM_DAY = 31;
 	
@@ -29,9 +31,6 @@ public class CalendarUtils {
 		year = date.getYear();
 		
 		this.calendar = Calendar.getInstance();
-
-		// Build dates array
-		dates = new Integer[MAXIMUM_DAY];
 	}
 
 	/**

@@ -1,6 +1,8 @@
 package com.yodi.calendar;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,7 @@ import android.widget.TextView;
 
 public class ItemAdapter extends BaseAdapter {
 	private Context mContext;
+	private Integer datePicker;
 	public final Integer MAXIMUM_DAY = 31;
 	private Integer[] dates = new Integer[MAXIMUM_DAY];	
 	
@@ -35,27 +38,30 @@ public class ItemAdapter extends BaseAdapter {
 	public long getItemId(int position) {
 		return position;
 	}
+	
+	public void setDatePicker(int input) {
+		datePicker = input - 1;
+	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		View v = convertView;
 		ViewHolder holder; // to reference the child views for later actions
 
 		if(convertView == null) {
 			LayoutInflater li = LayoutInflater.from(mContext);
-			v = li.inflate(R.layout.item, parent, false);
+			convertView = li.inflate(R.layout.item, parent, false);
 			
 			// cache view fields into the holder
 			holder = new ViewHolder();
 			
 			// Set Text
-			holder.dateText =(TextView) v.findViewById(R.id.item_text);
+			holder.dateText = (TextView) convertView.findViewById(R.id.item_text);
 			
 			// Associate the holder with the view for latter lookup
-			v.setTag(holder);	
+			convertView.setTag(holder);	
 
 		} else {
-			holder = (ViewHolder) v.getTag();
+			holder = (ViewHolder) convertView.getTag();			
 		}
 		
 		// Get day number by position
@@ -68,7 +74,15 @@ public class ItemAdapter extends BaseAdapter {
 		// Set text resource on each position		
 		holder.dateText.setText(Integer.toString(dayNumber) + " - " + dayName);
 
-		return v;
+		// Update date picker
+		if(datePicker != null && position == datePicker) {
+			Log.d("ANDROID", Integer.toString(position));
+			convertView.setBackgroundColor(Color.parseColor("#48B93D"));
+		} else if (datePicker != null){
+			convertView.setBackgroundColor(Color.parseColor("#484848"));
+		}
+		
+		return convertView;
 	}
 	
 	static class ViewHolder {
