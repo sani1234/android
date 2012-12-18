@@ -105,24 +105,30 @@ public class MainActivity extends Activity {
 		});
 	}
 	
+	@Override
 	protected Dialog onCreateDialog(int id) {
-		String[] options = {"RED", "YELLOW", "GREEN"};
+		String[] options = {"PUSH-UP", "SIT-UP", "DUMB-BELL", "RUNNING"};
 
 		switch(id) {
 		case DIALOG_ALERT:
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setTitle("Choose Workout Menu");
 			builder.setCancelable(false);
-			builder.setItems(options, new DialogInterface.OnClickListener() {
+
+			// Set the dialog menu
+			builder.setMultiChoiceItems(options, null,
+					new DialogInterface.OnMultiChoiceClickListener() {
 				
 				@Override
-				public void onClick(DialogInterface dialog, int which) {
+				public void onClick(DialogInterface dialog, int which,
+						boolean isChecked) {
 					// TODO Auto-generated method stub
 					Log.d(ANDROID_TAG, Integer.toString(which));
 				}
 			});
 			
-			builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+			builder.setPositiveButton("DO",
+					new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
@@ -130,7 +136,8 @@ public class MainActivity extends Activity {
 				}
 			});
 			
-			builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+			builder.setNegativeButton("Abort",
+					new DialogInterface.OnClickListener() {
 				
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
@@ -139,12 +146,11 @@ public class MainActivity extends Activity {
 				}
 			});
 			
-			
 			AlertDialog alertDialog = builder.create();
 			alertDialog.show();
 		}
+
 		return super.onCreateDialog(id);
 	}
 	
-
 }
