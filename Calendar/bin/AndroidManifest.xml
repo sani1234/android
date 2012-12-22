@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.yodi.calendar"
+    package="com.yodi.bodyslap"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -16,7 +16,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.yodi.calendar.MainActivity"
+            android:name="com.yodi.bodyslap.BodySlapActivity"
             android:theme="@android:style/Theme.Black.NoTitleBar"
             android:label="@string/app_name" >
             <intent-filter>
@@ -25,7 +25,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.yodi.calendar.DetailActivity"
+            android:name="com.yodi.bodyslap.DetailActivity"
             android:theme="@android:style/Theme.Black.NoTitleBar">
         </activity>
     </application>
