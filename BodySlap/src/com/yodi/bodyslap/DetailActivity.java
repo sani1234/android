@@ -6,6 +6,7 @@ import java.util.Date;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -21,6 +22,7 @@ public class DetailActivity extends Activity {
 	private ImageView mImageView;
 	private String mCurrentPhotoPath;
 	private static String ANDROID_TAG = "ANDROID";
+	private UserDataSource userDataSource;
 
 	/**
 	 * Set application in full-screen mode and remove title app
@@ -80,6 +82,9 @@ public class DetailActivity extends Activity {
 		super.onCreate(savedInstanceState);		
 		fullScreen();
 		
+		userDataSource = new UserDataSource(this);
+		userDataSource.open();
+		
 		setContentView(R.layout.detail_calendar);
 		mImageView = (ImageView) findViewById(R.id.photoImage);
 		
@@ -101,7 +106,13 @@ public class DetailActivity extends Activity {
 			String today = new SimpleDateFormat("dd").format(new Date());
 			position = Integer.parseInt(today);
 			dayNumber = position + 1;
-		} 		
+		}
+		
+		Cursor cursor = userDataSource.fetchTrackerbyID(dayNumber);
+		if(cursor.moveToFirst()) {
+			String exercise = cursor.getString(
+					cursor.getColumnIndex("is_exercise"));
+		}
 
 		// Set title of selected day
 		TextView tv = (TextView) findViewById(R.id.calendar_title_text);

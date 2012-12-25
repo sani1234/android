@@ -16,6 +16,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.text.format.DateFormat;
@@ -50,6 +51,7 @@ public class BodySlapActivity extends Activity {
 
 	private ItemAdapter imageAdapter;
 	private Date today;
+	private UserDataSource userDataSource;
 	
 	/**
 	 * Set application in full-screen mode and remove title app
@@ -97,6 +99,7 @@ public class BodySlapActivity extends Activity {
 			Intent i = new Intent(getApplicationContext(),
 					DetailActivity.class);				
 			i.putExtra("id", position);
+			Log.d(ANDROID_TAG, Integer.toString(position));
 			startActivity(i);
 		}
 	};
@@ -287,6 +290,10 @@ public class BodySlapActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		// Setup database connection to SQLITE
+		userDataSource = new UserDataSource(this);
+		userDataSource.open();
+		
 		// Building Calendar
 		CalendarUtils calendarUtils = new CalendarUtils();
 		today = calendarUtils.getToday();
@@ -330,7 +337,30 @@ public class BodySlapActivity extends Activity {
 				// Set date pickers cells
 				imageAdapter.setDatePicker(today.getDate());
 				gridView.invalidateViews();
+				
+				Integer isExercise = 1;
+				
+				// Formating the date
+				String now = new SimpleDateFormat("dd").format(today);
+				
+				Integer day = Integer.parseInt(now);
+
+				// Create a new data, if exists then update
+				userDataSource.createTracker(day, isExercise);
+				Log.v(ANDROID_TAG, "Writing into database .. " + Integer.toString(day));
+				
+				// Get all data in table Tracker
+				Cursor data = userDataSource.fetchAllTracker();
+
+				if(data.moveToFirst()) {
+					do {
+						Log.d(ANDROID_TAG, "Day " +
+							data.getString(data.getColumnIndex("day")) + " " +
+						"Exercise " + data.getString(data.getColumnIndex("is_exercise")));
+					} while (data.moveToNext());
+				}
 			}
 		});
 	}
+	
 }
